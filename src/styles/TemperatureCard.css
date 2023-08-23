@@ -1,0 +1,72 @@
+header {
+  margin: 6px;
+}
+
+.name-app {
+  font-size: 24px;
+  color: white;
+}
+
+.current-date {
+  text-align: center;
+}
+
+.submit-city-button {
+  margin-bottom: 1rem;
+  min-width: 80px;
+}
+
+.current-position {
+  margin-bottom: 32px;
+}
+
+.temperature-card {
+  background-color: antiquewhite;
+  margin-bottom: 20px;
+}
+
+.today-and-photo {
+  padding-top: 20px;
+  font-size: calc(24px + 1.5vw);
+}
+
+.today-card {
+  text-align: left;
+  line-height: calc(24px + 6vw);
+}
+
+.icon {
+  min-width: 100px;
+  max-width: 9vw;
+}
+
+.current-temperature {
+  text-align: center;
+  font-size: calc(24px + 5vw);
+}
+
+.current-temp-card {
+  padding: 20px;
+}
+
+.celsius {
+  font-size: calc(24px + 2vw);
+  margin: 5px;
+}
+
+.wind-speed {
+  color: red;
+}
+
+.humidity {
+  color: red;
+}
+
+.weather-description {
+  display: block;
+  color: grey;
+}
+
+.weather-description::first-letter {
+  text-transform: uppercase;
+}
