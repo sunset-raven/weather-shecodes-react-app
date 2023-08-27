@@ -16,8 +16,8 @@ header {
   min-width: 80px;
 }
 
-.current-position {
-  margin-bottom: 32px;
+h1 {
+  margin: 120px 0 80px;
 }
 
 .temperature-card {
@@ -50,8 +50,7 @@ header {
 }
 
 .celsius {
-  font-size: calc(24px + 2vw);
-  margin: 5px;
+  font-size: calc(24px + 1vw);
 }
 
 .wind-speed {

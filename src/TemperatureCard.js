@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
 import "./styles/TemperatureCard.css";
+import CurrentDate from "./CurrentDate";
+import CurrentCity from "./CurrentCity";
 
 export default function TemperatureCard() {
+  let inputRef = useRef(null);
   let [city, setCity] = useState("");
   let [searchedCity, setSearchedCity] = useState("Select Your City!");
   let [weather, setWeather] = useState({
@@ -11,6 +14,7 @@ export default function TemperatureCard() {
     humidity: 0,
     description: "Sunny",
     icon: "http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png",
+    date: null
   });
 
   function showTemperature(response) {
@@ -20,21 +24,19 @@ export default function TemperatureCard() {
       humidity: response.data.temperature.humidity,
       description: response.data.condition.description,
       icon: response.data.condition.icon_url,
+      date: new Date(response.data.time * 1000),
     });
-  }
-
-  function updateCity(event) {
-    event.preventDefault();
-    setCity(event.target.value);
   }
 
   function handleSubmit(event) {
     event.preventDefault();
-    setSearchedCity(city);
+    setCity(inputRef.current.value);
+    setSearchedCity(inputRef.current.value);
     getTemperature();
   }
 
   function getTemperature() {
+    console.log(city);
     let apiKey = `9db3t643621b51990bco3eac83a0cf5a`;
     let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
     axios.get(apiUrl).then(showTemperature);
@@ -48,10 +50,12 @@ export default function TemperatureCard() {
             <div className="name-app col text-truncate">
               Weather Application
             </div>
-            <div className="current-date col"></div>
+            <div className="current-date col">
+              <CurrentDate date={weather.date} />
+            </div>
             <form className="search-city col row" onSubmit={handleSubmit}>
               <input
-                onChange={updateCity}
+                ref={inputRef}
                 title="Remember to write in english!"
                 type="search"
                 className="input-city col form-control text-truncate"
@@ -67,11 +71,7 @@ export default function TemperatureCard() {
         </div>
       </header>
       <h1>{searchedCity}</h1>
-      <div className="CurrentCity container text-center">
-        <button type="button" className="current-position btn btn-primary">
-          Check the temperature of your current position!
-        </button>
-      </div>
+      <CurrentCity />
       <div className="temperature-card container border border-black rounded">
         <div className="row g-0 justify-content-center">
           <div className="today-and-photo col col-lg-3">
