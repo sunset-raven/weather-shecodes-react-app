@@ -3,10 +3,10 @@ import axios from "axios";
 import "./styles/TemperatureCard.css";
 import CurrentDate from "./CurrentDate";
 import CurrentCity from "./CurrentCity";
+import UnitsChange from "./UnitsChange";
 
 export default function TemperatureCard() {
   let inputRef = useRef(null);
-  let [city, setCity] = useState("");
   let [searchedCity, setSearchedCity] = useState("Select Your City!");
   let [weather, setWeather] = useState({
     temperature: 0,
@@ -14,7 +14,7 @@ export default function TemperatureCard() {
     humidity: 0,
     description: "Sunny",
     icon: "http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png",
-    date: null
+    date: null,
   });
 
   function showTemperature(response) {
@@ -30,13 +30,13 @@ export default function TemperatureCard() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    setCity(inputRef.current.value);
-    setSearchedCity(inputRef.current.value);
-    getTemperature();
+    let newCity = inputRef.current.value;
+    setSearchedCity(newCity);
+    getTemperature(newCity);
+
   }
 
-  function getTemperature() {
-    console.log(city);
+  function getTemperature(city) {
     let apiKey = `9db3t643621b51990bco3eac83a0cf5a`;
     let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
     axios.get(apiUrl).then(showTemperature);
@@ -88,12 +88,7 @@ export default function TemperatureCard() {
           </div>
           <div className="current-temp-card col col-lg-6">
             <div className="row">
-              <div className="current-temperature col">
-                {weather.temperature}
-              </div>
-              <div className="units col">
-                <span className="celsius">°C</span>
-              </div>
+              <UnitsChange temp={weather.temperature} />
               <div className="col">
                 <span>Wind speed: </span>
                 <span className="wind-speed">{weather.windSpeed}</span>

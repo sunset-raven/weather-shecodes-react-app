@@ -40,17 +40,8 @@ h1 {
   max-width: 9vw;
 }
 
-.current-temperature {
-  text-align: center;
-  font-size: calc(24px + 5vw);
-}
-
 .current-temp-card {
   padding: 20px;
-}
-
-.celsius {
-  font-size: calc(24px + 1vw);
 }
 
 .wind-speed {

@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function CurrentDate(props) {
-  console.log(props);
   if (props.date === null) {
     return <p>Choose your destiny!</p>;
   } else {

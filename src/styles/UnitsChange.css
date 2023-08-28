@@ -1,0 +1,16 @@
+.celsius {
+  font-size: calc(24px + 1vw);
+  text-decoration: none;
+  color: black;
+}
+
+.fahrenheit {
+  font-size: calc(24px + 1vw);
+  text-decoration: none;
+  color: black;
+}
+
+.current-temperature {
+  text-align: center;
+  font-size: calc(24px + 5vw);
+}
