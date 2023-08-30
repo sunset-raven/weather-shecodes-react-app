@@ -1,23 +1,23 @@
-.ForecastCard {
+ .forecast-card {
   padding: 10px;
   background-color: antiquewhite;
   margin-bottom: 20px;
 }
-
-.ForecastCard .forecast-day {
+ 
+ .forecast-day {
   font-size: calc(8px + 1vw);
 }
 
-.ForecastCard .forecast-img {
+.forecast-img {
   min-width: 50px;
   max-width: 5vw;
 }
 
-.ForecastCard .forecast-temp-max {
+.forecast-temp-max {
   font-size: calc(8px + 0.5vw);
 }
 
-.ForecastCard .forecast-temp-min {
+.forecast-temp-min {
   font-size: calc(8px + 0.5vw);
   opacity: 0.5;
 }

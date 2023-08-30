@@ -4,6 +4,7 @@ import "./styles/TemperatureCard.css";
 import CurrentDate from "./CurrentDate";
 import CurrentCity from "./CurrentCity";
 import UnitsChange from "./UnitsChange";
+import ForecastCard from "./ForecastCard";
 
 export default function TemperatureCard() {
   let inputRef = useRef(null);
@@ -16,6 +17,7 @@ export default function TemperatureCard() {
     icon: "http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png",
     date: null,
   });
+  let [forecast, setForecast] = useState();
 
   function showTemperature(response) {
     setWeather({
@@ -28,18 +30,24 @@ export default function TemperatureCard() {
     });
   }
 
+  function showForecastTemp(response) {
+    setForecast(response.data.daily);
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
     let newCity = inputRef.current.value;
     setSearchedCity(newCity);
     getTemperature(newCity);
-
   }
 
   function getTemperature(city) {
     let apiKey = `9db3t643621b51990bco3eac83a0cf5a`;
     let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
+    let forecastApiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}`;
+
     axios.get(apiUrl).then(showTemperature);
+    axios.get(forecastApiUrl).then(showForecastTemp);
   }
 
   return (
@@ -106,6 +114,7 @@ export default function TemperatureCard() {
           </div>
         </div>
       </div>
+      <ForecastCard forecast={forecast} />
     </div>
   );
 }
