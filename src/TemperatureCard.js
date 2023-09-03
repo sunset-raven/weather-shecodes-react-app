@@ -2,13 +2,14 @@ import React, { useState, useRef } from "react";
 import axios from "axios";
 import "./styles/TemperatureCard.css";
 import CurrentDate from "./CurrentDate";
-import CurrentCity from "./CurrentCity";
-import UnitsChange from "./UnitsChange";
+// import CurrentCity from "./CurrentCity";
+import ShowTemperatureCard from "./ShowTemperatureCard";
 import ForecastCard from "./ForecastCard";
 
 export default function TemperatureCard() {
   let inputRef = useRef(null);
-  let [searchedCity, setSearchedCity] = useState("Select Your City!");
+  let [searchedCity, setSearchedCity] = useState("Select your city!");
+  let [forecast, setForecast] = useState(null);
   let [weather, setWeather] = useState({
     temperature: 0,
     windSpeed: 50,
@@ -17,7 +18,7 @@ export default function TemperatureCard() {
     icon: "http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png",
     date: null,
   });
-  let [forecast, setForecast] = useState();
+  let apiKey = `9db3t643621b51990bco3eac83a0cf5a`;
 
   function showTemperature(response) {
     setWeather({
@@ -42,12 +43,28 @@ export default function TemperatureCard() {
   }
 
   function getTemperature(city) {
-    let apiKey = `9db3t643621b51990bco3eac83a0cf5a`;
     let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
     let forecastApiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}`;
 
     axios.get(apiUrl).then(showTemperature);
     axios.get(forecastApiUrl).then(showForecastTemp);
+  }
+
+  function showLocalTemperature(event) {
+    event.preventDefault();
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        let latitude = position.coords.latitude;
+        let longitude = position.coords.longitude;
+        let apiUrl = `https://api.shecodes.io/weather/v1/current?lat=${latitude}&lon=${longitude}&key=${apiKey}`;
+        let forecastApiUrl = `https://api.shecodes.io/weather/v1/forecast?lat=${latitude}&lon=${longitude}&key=${apiKey}`;
+
+        axios.get(forecastApiUrl).then(showForecastTemp);
+        axios.get(apiUrl).then(showTemperature);
+      });
+    } else {
+      return Error;
+    }
   }
 
   return (
@@ -79,41 +96,16 @@ export default function TemperatureCard() {
         </div>
       </header>
       <h1>{searchedCity}</h1>
-      <CurrentCity />
-      <div className="temperature-card container border border-black rounded">
-        <div className="row g-0 justify-content-center">
-          <div className="today-and-photo col col-lg-3">
-            <div className="row">
-              <img
-                className="icon img-fluid col-sm-6 col-xs-6 mx-auto"
-                src={weather.icon}
-                alt={weather.description}
-              />
-              <span className="today-card col-sm-6 col-xs-6 text-center">
-                Today
-              </span>
-            </div>
-          </div>
-          <div className="current-temp-card col col-lg-6">
-            <div className="row">
-              <UnitsChange temp={weather.temperature} />
-              <div className="col">
-                <span>Wind speed: </span>
-                <span className="wind-speed">{weather.windSpeed}</span>
-                <span className="wind-speed-measure"> m/s</span>
-                <br />
-                <span>Humidity: </span>
-                <span className="humidity">{weather.humidity}</span>
-                <span>%</span>
-                <br />
-                <span className="weather-description">
-                  {weather.description}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className="current-city container text-center">
+        <button
+          type="button"
+          className="current-position btn btn-primary"
+          onClick={showLocalTemperature}
+        >
+          Check the temperature of your current position!
+        </button>
       </div>
+      <ShowTemperatureCard weather={weather} />
       <ForecastCard forecast={forecast} />
     </div>
   );

@@ -20,43 +20,12 @@ h1 {
   margin: 120px 0 80px;
 }
 
-.temperature-card {
-  background-color: antiquewhite;
-  margin-bottom: 20px;
+.current-position {
+  margin-bottom: 32px;
 }
 
-.today-and-photo {
-  padding-top: 20px;
-  font-size: calc(24px + 1.5vw);
-}
-
-.today-card {
-  text-align: left;
-  line-height: calc(24px + 6vw);
-}
-
-.icon {
-  min-width: 100px;
-  max-width: 9vw;
-}
-
-.current-temp-card {
-  padding: 20px;
-}
-
-.wind-speed {
-  color: red;
-}
-
-.humidity {
-  color: red;
-}
-
-.weather-description {
-  display: block;
-  color: grey;
-}
-
-.weather-description::first-letter {
-  text-transform: uppercase;
+@media (max-width: 576px) {
+ h1 {
+  margin: 40px 0 40px;
+ } 
 }

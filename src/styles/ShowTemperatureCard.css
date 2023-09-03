@@ -1,0 +1,55 @@
+.temperature-card {
+  background-color: antiquewhite;
+  margin-bottom: 20px;
+}
+
+.today-and-photo {
+  padding-top: 20px;
+  font-size: calc(24px + 1.5vw);
+}
+
+.today-card {
+  text-align: left;
+  line-height: calc(24px + 6vw);
+}
+
+.icon {
+  min-width: 100px;
+  max-width: 9vw;
+}
+
+.current-temp-card {
+  padding: 20px;
+}
+
+.current-temperature {
+  padding: 0px !important;
+}
+
+.units {
+  padding: 0 20px;
+  min-width: 40px;
+}
+
+.climate-info {
+  font-size: calc(16px + 0.5vw);
+  min-width: 140px;
+  padding: 0px;
+}
+
+.wind-speed {
+  color: red;
+}
+
+.humidity {
+  color: red;
+}
+
+.weather-description {
+  display: block;
+  color: grey;
+}
+
+.weather-description::first-letter {
+  text-transform: uppercase;
+}
