@@ -21,14 +21,18 @@ export default function TemperatureCard() {
   let apiKey = `9db3t643621b51990bco3eac83a0cf5a`;
 
   function showTemperature(response) {
-    setWeather({
-      temperature: Math.round(response.data.temperature.current),
-      windSpeed: Math.round(response.data.wind.speed),
-      humidity: response.data.temperature.humidity,
-      description: response.data.condition.description,
-      icon: response.data.condition.icon_url,
-      date: new Date(response.data.time * 1000),
-    });
+    if (response.data.message === "City not found") {
+      alert("City not found! Remember to search for city in english!"); 
+    } else {
+      setWeather({
+        temperature: Math.round(response.data.temperature.current),
+        windSpeed: Math.round(response.data.wind.speed),
+        humidity: response.data.temperature.humidity,
+        description: response.data.condition.description,
+        icon: response.data.condition.icon_url,
+        date: new Date(response.data.time * 1000),
+      });
+    }
   }
 
   function showForecastTemp(response) {

@@ -42,6 +42,6 @@ export default function ShowTemperature(props) {
     </div>
   );
 } else {
-  return null;
+  return alert("An error occured! Insert a recognizable city!");
 }
 }

@@ -16,7 +16,7 @@ function showCelsius(event) {
 
   if (unit === "celsius") {
     return (
-      <div className="col-6 pe-0">
+      <div className="UnitsChange col-6 pe-0">
         <div className="row">
           <div className="current-temperature col-6">{props.temp}</div>
           <div className="units col-6">
@@ -34,7 +34,7 @@ function showCelsius(event) {
     );
   } else {
     return (
-      <div className="col-6 pe-0">
+      <div className="UnitsChange col-6 pe-0">
         <div className="row">
           <div className="current-temperature col-6">
             {Math.round((props.temp * 9) / 5 + 32)}
